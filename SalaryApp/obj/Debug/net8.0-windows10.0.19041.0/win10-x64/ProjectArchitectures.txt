@@ -1,0 +1,1 @@
+I:\SalaryApp\SalaryApp\SalaryApp\SalaryApp.csproj;x64

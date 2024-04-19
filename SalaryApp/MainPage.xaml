@@ -1,0 +1,36 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SalaryApp.MainPage">
+
+    <ScrollView>
+        <StackLayout x:Name="stackLayout"
+                     Padding="30,0"
+                     Spacing="25">
+
+            <Image Source="dotnet_bot.png"
+                   HeightRequest="185"
+                   Aspect="AspectFit"
+                   SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <!-- Первое поле ввода -->
+            <Entry Placeholder="Введите проценты"
+                   FontFamily="Helvetica"
+                   FontSize="22"
+                   MaxLength="20"
+                   Keyboard="Numeric"
+                   x:Name="percentEntry1" />
+
+            <!-- Кнопка "+" -->
+            <Button Text="+"
+                    Clicked="AddToList" />
+
+            <!-- Кнопка -->
+            <Button x:Name="CounterBtn"
+                    Text="Click me"
+                    SemanticProperties.Hint="Counts the number of times you click"
+                    Clicked="OnCounterClicked"
+                    HorizontalOptions="Fill" />
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
