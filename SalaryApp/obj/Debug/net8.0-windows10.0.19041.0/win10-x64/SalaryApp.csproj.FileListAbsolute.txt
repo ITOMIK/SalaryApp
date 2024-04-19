@@ -175,3 +175,4 @@ I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\
 I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\qualifiers.txt.intermediate
 I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
 I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\ProjectArchitectures.txt
+I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.sourcelink.json

@@ -1,89 +1,113 @@
-﻿namespace SalaryApp
+﻿
+using SalaryApp.Models;
+using System.Collections.Generic;
+namespace SalaryApp
 {
+
+
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
-        public List<string> Items { get; set; }
 
         public List<Entry> EntryList { get; set; }
+
+        public List<Employee> Employees { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
 
-            // Пример заполнения коллекции элементов
-            Items = new List<string> { "Item 1", "Item 2", "Item 3", "Item 4" };
+
+            Employees = new List<Employee>();
 
 
             EntryList = new List<Entry>();
-            // Установка контекста данных
+
             BindingContext = this;
+
+            AddEntry();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+
+        private void Entry_Unfocused(object sender, FocusEventArgs e)
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            UpdateEmployeesList();
         }
-
-
-        // Метод для добавления нового поля ввода
         private void AddEntry()
         {
             var entry = new Entry
             {
-                Placeholder = "Введите проценты",
+                Placeholder = "%",
                 FontFamily = "Helvetica",
                 FontSize = 22,
                 MaxLength = 20,
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Numeric,
+                WidthRequest = 40
             };
-
+            entry.Unfocused += Entry_Unfocused;
+            var nameEntry = new Entry
+            {
+                Placeholder = "Имя",
+                FontFamily = "Helvetica",
+                FontSize = 22,
+                MaxLength = 20,
+                Keyboard = Keyboard.Default,
+                WidthRequest = 200
+            };
+            nameEntry.Unfocused += Entry_Unfocused;
             var button = new Button
             {
                 Text = "-",
-                BackgroundColor = new Color(0), // Устанавливаем красный цвет для кнопки "-"
+                BackgroundColor = new Color(0),
                 TextColor = new Color(1),
                 WidthRequest = 40,
+                
                 HeightRequest = 40
             };
 
-            // Обработчик нажатия кнопки "-"
             button.Clicked += (sender, e) =>
             {
-                // Находим родительский StackLayout
                 var parentLayout = (sender as Button).Parent as StackLayout;
                 if (parentLayout != null)
                 {
-                    // Удаляем родительский StackLayout, который содержит как поле ввода, так и кнопку "-"
-                    stackLayout.Children.Remove(parentLayout);
-                    // Удаляем Entry из списка EntryList
-                    var entryToRemove = EntryList.FirstOrDefault(ent => ent == entry);
+                    StackFirst.Children.Remove(parentLayout);
+
+                    var entryToRemove = Employees.FirstOrDefault(emp => emp.Entry == entry);
                     if (entryToRemove != null)
                     {
-                        EntryList.Remove(entryToRemove);
+                        Employees.Remove(entryToRemove);
                     }
+
+                    UpdateEmployeesList();
                 }
             };
 
             var entryStackLayout = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal,
-                Children = { entry, button }
+                Children = { entry, nameEntry, button },
             };
 
-            EntryList.Add(entry);
-            stackLayout.Children.Insert(stackLayout.Children.Count - 1, entryStackLayout);
+            Employees.Add(new Employee(name: nameEntry, entry: entry));
+
+            StackFirst.Children.Insert(StackFirst.Children.Count, entryStackLayout);
+
+            UpdateEmployeesList();
         }
 
-        // Обработчик нажатия на кнопку "+"
+        private void UpdateEmployeesList()
+        {
+            employeesGrid.Children.Clear();
+
+            foreach (var employee in Employees)
+            {
+                var label = new Label { Text = $"{employee.NameEntry.Text}: {employee.Entry.Text}%" };
+                employeesGrid.Children.Add(label);
+            }
+
+            double totalPercentage = Employees.Sum(emp => Convert.ToDouble(emp.Entry.Text));
+            totalPercentageLabel.Text = $"Общая сумма процентов: {totalPercentage}%";
+        }
+
         private void AddToList(object sender, EventArgs e)
         {
             AddEntry();

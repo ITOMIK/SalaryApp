@@ -3,34 +3,84 @@
              x:Class="SalaryApp.MainPage">
 
     <ScrollView>
-        <StackLayout x:Name="stackLayout"
-                     Padding="30,0"
-                     Spacing="25">
-
+        <StackLayout Margin="10">
             <Image Source="dotnet_bot.png"
                    HeightRequest="185"
                    Aspect="AspectFit"
                    SemanticProperties.Description="dot net bot in a race car number eight" />
 
-            <!-- Первое поле ввода -->
-            <Entry Placeholder="Введите проценты"
-                   FontFamily="Helvetica"
-                   FontSize="22"
-                   MaxLength="20"
-                   Keyboard="Numeric"
-                   x:Name="percentEntry1" />
+                <!-- Первое поле ввода -->
 
-            <!-- Кнопка "+" -->
-            <Button Text="+"
-                    Clicked="AddToList" />
+            <StackLayout x:Name="StackFirst" Spacing="10">
+                <!-- Первая строка -->
+                <StackLayout Orientation="Horizontal"  Margin="0,0,0,10">
+                    <!-- Поле ввода для имени привлекателя -->
+                    <Entry Placeholder="Имя Привлекателя"
+               FontFamily="Helvetica"
+               FontSize="22"
+               MaxLength="20"
+               WidthRequest="200"
+               Keyboard="Default"
+               x:Name="percentEntry1" />
 
-            <!-- Кнопка -->
-            <Button x:Name="CounterBtn"
-                    Text="Click me"
-                    SemanticProperties.Hint="Counts the number of times you click"
-                    Clicked="OnCounterClicked"
-                    HorizontalOptions="Fill" />
+                    <!-- Поле ввода для процентов -->
+                    <Entry Placeholder="%"
+               FontFamily="Helvetica"
+               FontSize="22"
+               MaxLength="3"
+               WidthRequest="40"
+               Keyboard="Numeric"
+               x:Name="percentEntry2" />
+
+                    <!-- Чекбокс для указания, является ли привлекатель фирмой -->
+                    <CheckBox x:Name="companyCheckBox" WidthRequest="40" HeightRequest="40"
+                  VerticalOptions="Center" />
+
+                    <!-- Метка для чекбокса -->
+                    <Label Text="Привлекатель-фирма" FontSize="22" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <!-- Вторая строка -->
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <!-- Надпись "Работники" -->
+                    <Label Text="Работники" FontSize="22" VerticalOptions="Center" />
+
+                    <!-- Кнопка "+" -->
+                    <Button WidthRequest="60" Text="+" Clicked="AddToList" />
+                </StackLayout>
+                
+            </StackLayout>
+
+
+
+
+
+            <Label Grid.Row="3"
+                   Text="Добавленные сотрудники:"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   VerticalOptions="Start" />
+            <!-- Добавляем две колонки для отображения информации о сотрудниках -->
+                <Grid Grid.Row="3" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                <StackLayout x:Name="employeesGrid" >
+                    <Label Text="Имя сотрудника" FontSize="16" FontAttributes="Bold" Grid.Column="0" />
+                    <Label Text="Проценты" FontSize="16" FontAttributes="Bold" Grid.Column="1" />
+                
+                    
+                </StackLayout>
+            </Grid>
+
+                <Label Grid.Row="4"
+                   Text="Общая сумма процентов: 0"
+                   x:Name="totalPercentageLabel"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   VerticalOptions="Start" />
         </StackLayout>
     </ScrollView>
-
+        
 </ContentPage>
