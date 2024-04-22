@@ -19,9 +19,9 @@
                FontFamily="Helvetica"
                FontSize="22"
                MaxLength="20"
-               WidthRequest="200"
+               WidthRequest="220"
                Keyboard="Default"
-               x:Name="percentEntry1" />
+               x:Name="attractorName"/>
 
                     <!-- Поле ввода для процентов -->
                     <Entry Placeholder="%"
@@ -30,14 +30,14 @@
                MaxLength="3"
                WidthRequest="40"
                Keyboard="Numeric"
-               x:Name="percentEntry2" />
+               x:Name="attractorData" />
 
                     <!-- Чекбокс для указания, является ли привлекатель фирмой -->
-                    <CheckBox x:Name="companyCheckBox" WidthRequest="40" HeightRequest="40"
+                    <CheckBox x:Name="FirmaCheckBox" HeightRequest="50"
                   VerticalOptions="Center" />
 
                     <!-- Метка для чекбокса -->
-                    <Label Text="Привлекатель-фирма" FontSize="22" VerticalOptions="Center"/>
+                    <Label Text="Привлекатель - фирма" FontSize="30" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <!-- Вторая строка -->
@@ -48,11 +48,23 @@
                     <!-- Кнопка "+" -->
                     <Button WidthRequest="60" Text="+" Clicked="AddToList" />
                 </StackLayout>
-                
+
             </StackLayout>
 
 
+            <StackLayout Orientation="Horizontal"  Margin="0,10,0,10">
+                <Label Text="Фирма: " FontSize="22" VerticalOptions="Center" />
 
+                <!-- Поле ввода для процентов -->
+                <Entry Placeholder="%"
+                    FontFamily="Helvetica"
+                    FontSize="22"
+                    MaxLength="3"
+                    WidthRequest="40"
+                    Margin="10"
+                    Keyboard="Numeric"
+                    x:Name="FirmaData" />
+            </StackLayout>
 
 
             <Label Grid.Row="3"
@@ -75,11 +87,26 @@
             </Grid>
 
                 <Label Grid.Row="4"
-                   Text="Общая сумма процентов: 0"
-                   x:Name="totalPercentageLabel"
+                   Text="Привлекатель процентов: 0"
+                   x:Name="AttractorLabel"
                    FontSize="20"
                    FontAttributes="Bold"
                    VerticalOptions="Start" />
+
+            <Label Grid.Row="5"
+               Text="Фирма сумма процентов: 0"
+               x:Name="FirmaLabel"
+               FontSize="20"
+               FontAttributes="Bold"
+               VerticalOptions="Start" />           
+
+            <Label Grid.Row="5"
+               Text="Работники сумма процентов: 0"
+               x:Name="totalPercentageLabel"
+               FontSize="20"
+               FontAttributes="Bold"
+               VerticalOptions="Start" />   
+
         </StackLayout>
     </ScrollView>
         

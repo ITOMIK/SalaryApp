@@ -7,6 +7,13 @@ namespace SalaryApp
 
     public partial class MainPage : ContentPage
     {
+        public string AttractorName = "Привлекатель";
+
+        public string AttractorData = "0";
+
+        public bool IsAttractorFirma = false;
+
+        public string firmaData = "0";
 
         public List<Entry> EntryList { get; set; }
 
@@ -16,9 +23,15 @@ namespace SalaryApp
         {
             InitializeComponent();
 
+            attractorName.TextChanged += AttractorName_Changed;
+
+            attractorData.TextChanged += AttractorData_Changed;
+
+            FirmaCheckBox.CheckedChanged += IsAttractorFirma_Changed;
+
+            FirmaData.TextChanged += FirmaData_Changed;
 
             Employees = new List<Employee>();
-
 
             EntryList = new List<Entry>();
 
@@ -27,8 +40,33 @@ namespace SalaryApp
             AddEntry();
         }
 
+        private void AttractorName_Changed(object sender, TextChangedEventArgs e)
+        {
+            AttractorName = e.NewTextValue;
+            UpdateEmployeesList();
+        }
 
-        private void Entry_Unfocused(object sender, FocusEventArgs e)
+        private void AttractorData_Changed(object sender, TextChangedEventArgs e)
+        {
+            AttractorData = e.NewTextValue;
+            UpdateEmployeesList();
+        }
+
+        private void IsAttractorFirma_Changed(object sender, CheckedChangedEventArgs e)
+        {
+            attractorName.IsVisible = !e.Value;
+            attractorData.IsVisible = !e.Value;
+            IsAttractorFirma = e.Value;
+            UpdateEmployeesList();
+        }
+
+        private void FirmaData_Changed(object sender, TextChangedEventArgs e)
+        {
+            firmaData = e.NewTextValue;
+            UpdateEmployeesList();
+        }
+
+        private void Entry_Unfocused(object sender, TextChangedEventArgs e)
         {
             UpdateEmployeesList();
         }
@@ -43,7 +81,7 @@ namespace SalaryApp
                 Keyboard = Keyboard.Numeric,
                 WidthRequest = 40
             };
-            entry.Unfocused += Entry_Unfocused;
+            entry.TextChanged += Entry_Unfocused;
             var nameEntry = new Entry
             {
                 Placeholder = "Имя",
@@ -53,7 +91,7 @@ namespace SalaryApp
                 Keyboard = Keyboard.Default,
                 WidthRequest = 200
             };
-            nameEntry.Unfocused += Entry_Unfocused;
+            nameEntry.TextChanged += Entry_Unfocused;
             var button = new Button
             {
                 Text = "-",
@@ -101,11 +139,22 @@ namespace SalaryApp
             foreach (var employee in Employees)
             {
                 var label = new Label { Text = $"{employee.NameEntry.Text}: {employee.Entry.Text}%" };
+                if (label.Text!=": %") { 
                 employeesGrid.Children.Add(label);
+                }
             }
-
             double totalPercentage = Employees.Sum(emp => Convert.ToDouble(emp.Entry.Text));
-            totalPercentageLabel.Text = $"Общая сумма процентов: {totalPercentage}%";
+            totalPercentageLabel.Text = $"Общая сумма Работники: {totalPercentage}%";
+            
+            FirmaLabel.Text = $"Фирма процент: {firmaData}%";
+            if (IsAttractorFirma)
+            {
+                AttractorLabel.IsVisible = false;
+            }
+            else {
+                AttractorLabel.IsVisible = true;
+                AttractorLabel.Text = $"{AttractorName} процент: {AttractorData}%";
+            }
         }
 
         private void AddToList(object sender, EventArgs e)
