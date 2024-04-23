@@ -10,7 +10,7 @@
                    SemanticProperties.Description="dot net bot in a race car number eight" />
 
                 <!-- Первое поле ввода -->
-
+            <Button WidthRequest="60" Text="Сохранить" Clicked="SaveData" />
             <StackLayout x:Name="StackFirst" Spacing="10">
                 <!-- Первая строка -->
                 <StackLayout Orientation="Horizontal"  Margin="0,0,0,10">
