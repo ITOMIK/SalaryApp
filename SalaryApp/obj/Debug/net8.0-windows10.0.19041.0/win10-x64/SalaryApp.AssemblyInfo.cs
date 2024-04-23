@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SalaryApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+7b0777b427cd65639e24ea46848605468c17ff99")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+d0de85177f05f1a28a49781c828a66519a1b40e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SalaryApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SalaryApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

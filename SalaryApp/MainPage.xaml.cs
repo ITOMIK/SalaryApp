@@ -18,6 +18,8 @@ namespace SalaryApp
 
         public string FilePath = "";
 
+        public int number = 0;
+
         public List<Entry> EntryList { get; set; }
 
         public List<Employee> Employees { get; set; }
@@ -33,6 +35,7 @@ namespace SalaryApp
             FirmaCheckBox.CheckedChanged += IsAttractorFirma_Changed;
 
             FirmaData.TextChanged += FirmaData_Changed;
+            suma.TextChanged += number_Changed;
 
             Employees = new List<Employee>();
 
@@ -63,6 +66,17 @@ namespace SalaryApp
         private void AttractorName_Changed(object sender, TextChangedEventArgs e)
         {
             AttractorName = e.NewTextValue;
+            UpdateEmployeesList();
+        }
+
+        private void number_Changed(object sender, TextChangedEventArgs e)
+        {
+            try { 
+            number = Convert.ToInt32(e.NewTextValue);
+            }
+            catch {
+                number = 0;
+            }
             UpdateEmployeesList();
         }
 
@@ -160,7 +174,21 @@ namespace SalaryApp
 
             foreach (var employee in Employees)
             {
-                var label = new Label { Text = $"{employee.NameEntry.Text}: {employee.Entry.Text}%" };
+                double num = 0;
+                try
+                {
+                    double sam = Convert.ToDouble(firmaData);
+                    if (!IsAttractorFirma)
+                    {
+                        sam += Convert.ToDouble(AttractorData);
+                    }
+                    num = Convert.ToDouble(employee.Entry.Text) * number * (100-sam) / 10000 ;
+                }
+                catch
+                {
+                    num = 0;
+                }
+                var label = new Label { Text = $"{employee.NameEntry.Text}: {num}" };
                 if (label.Text!=": %") { 
                 employeesGrid.Children.Add(label);
                 }
@@ -172,16 +200,35 @@ namespace SalaryApp
             catch {
                 totalPercentage = 0;
             }
-            totalPercentageLabel.Text = $"Общая сумма Работники: {totalPercentage}%";
-            
-            FirmaLabel.Text = $"Фирма процент: {firmaData}%";
+            totalPercentageLabel.Text = $"Общая сумма Работники: {totalPercentage}";
+
+            sum__.Text = "Сумма: "+number.ToString();
+            double firmaNum = 0;
+            try
+            {
+                firmaNum = Convert.ToDouble(firmaData)*number/100;
+            }
+            catch
+            {
+                firmaNum = 0;
+            }
+            FirmaLabel.Text = $"Фирма: {firmaNum}";
             if (IsAttractorFirma)
             {
                 AttractorLabel.IsVisible = false;
             }
             else {
                 AttractorLabel.IsVisible = true;
-                AttractorLabel.Text = $"{AttractorName} процент: {AttractorData}%";
+                double num = 0;
+                try
+                {
+                    num = Convert.ToDouble(AttractorData) * number / 100;
+                }
+                catch
+                {
+                    num = 0;
+                }
+                AttractorLabel.Text = $"{AttractorName} процент: {num}%";
             }
         }
 
@@ -205,6 +252,7 @@ namespace SalaryApp
                     writer.WriteLine($"Attractor Data: {AttractorData}");
                     writer.WriteLine($"Is Attractor Firma: {IsAttractorFirma}");
                     writer.WriteLine($"Firma Data: {firmaData}");
+                    writer.WriteLine($"Number: {number}");
 
                     writer.WriteLine("Employees:");
                     foreach (var employee in Employees)
@@ -244,10 +292,12 @@ namespace SalaryApp
                         AttractorData = reader.ReadLine()?.Split(':').LastOrDefault()?.Trim();
                         IsAttractorFirma = Convert.ToBoolean(reader.ReadLine()?.Split(':').LastOrDefault()?.Trim());
                         firmaData = reader.ReadLine()?.Split(':').LastOrDefault()?.Trim();
+                        number = Convert.ToInt32(reader.ReadLine()?.Split(':').LastOrDefault()?.Trim());
                         attractorName.Text = AttractorName;
                         attractorData.Text = AttractorData;
                         FirmaCheckBox.IsChecked = IsAttractorFirma;
                         FirmaData.Text = firmaData;
+                        suma.Text = number.ToString() ;
 
                         // Пропускаем строку с заголовком "Employees:"
                         reader.ReadLine();
