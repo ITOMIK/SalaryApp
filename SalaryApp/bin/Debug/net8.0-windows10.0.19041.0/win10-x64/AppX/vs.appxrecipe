@@ -29,13 +29,13 @@
     <AppXManifest Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2024-04-23T14:22:26.460</Modified>
+      <Modified>2024-04-23T19:37:28.649</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2024-04-23T13:09:33.218</Modified>
+      <Modified>2024-04-23T19:27:56.956</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.runtimeconfig.json">
       <PackagePath>SalaryApp.runtimeconfig.json</PackagePath>
@@ -43,11 +43,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.dll">
       <PackagePath>SalaryApp.dll</PackagePath>
-      <Modified>2024-04-23T14:22:25.620</Modified>
+      <Modified>2024-04-23T19:37:28.370</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>SalaryApp.exe</PackagePath>
-      <Modified>2024-04-23T14:22:25.662</Modified>
+      <Modified>2024-04-23T19:37:28.373</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>

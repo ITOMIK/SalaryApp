@@ -8,7 +8,7 @@
     Title="SalaryApp">
 
     <ShellContent
-        Title="Home"
+        Title="SalaryApp"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Maui.Storage;
 using SalaryApp.Models;
 using System.Collections.Generic;
 namespace SalaryApp
@@ -14,6 +15,8 @@ namespace SalaryApp
         public bool IsAttractorFirma = false;
 
         public string firmaData = "0";
+
+        public string FilePath = "";
 
         public List<Entry> EntryList { get; set; }
 
@@ -35,15 +38,26 @@ namespace SalaryApp
 
             EntryList = new List<Entry>();
 
+            FilePath = "";
+
             BindingContext = this;
 
+            if (FilePath.Length > 0) {
+            ReadFromFile(FilePath);
 
-            ReadFromFile("Data");
+            }
         }
 
         private void SaveData(object sender, EventArgs e)
         {
-            WriteToFile("Data"); 
+            if (FilePath.Length > 0)
+            {
+                WriteToFile(FilePath);
+            }
+            else
+            {
+                createNewFile();
+            }
         }
 
         private void AttractorName_Changed(object sender, TextChangedEventArgs e)
@@ -115,7 +129,7 @@ namespace SalaryApp
                 var parentLayout = (sender as Button).Parent as StackLayout;
                 if (parentLayout != null)
                 {
-                    StackFirst.Children.Remove(parentLayout);
+                    EmploeesEntys.Children.Remove(parentLayout);
 
                     var entryToRemove = Employees.FirstOrDefault(emp => emp.Entry == entry);
                     if (entryToRemove != null)
@@ -135,7 +149,7 @@ namespace SalaryApp
 
             Employees.Add(new Employee(name: nameEntry, entry: entry));
 
-            StackFirst.Children.Insert(StackFirst.Children.Count, entryStackLayout);
+            EmploeesEntys.Children.Insert(EmploeesEntys.Children.Count, entryStackLayout);
 
             UpdateEmployeesList();
         }
@@ -218,7 +232,7 @@ namespace SalaryApp
             {
                 // Путь к файлу в папке Documents на устройстве
                 string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), fileName);
-
+                
                 // Проверяем, существует ли файл
                 if (File.Exists(filePath))
                 {
@@ -240,7 +254,9 @@ namespace SalaryApp
 
                         // Читаем сотрудников из файла
                         Employees.Clear();
+                        EmploeesEntys.Children.Clear();
                         string line;
+
                         while ((line = reader.ReadLine()) != null)
                         {
                             string[] parts = line.Split(':');
@@ -270,6 +286,71 @@ namespace SalaryApp
                 // Если возникла ошибка, сообщаем пользователю
                 DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
             }
+        }
+
+        private async void OnButtonClick(object sender, EventArgs e)
+        {
+            // Вызываем метод для выбора файла и получаем его путь
+            string filePath = await PickFile();
+            
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                FilePath = filePath;
+                _fileName.Text = filePath;
+                ReadFromFile(filePath);
+            }
+        }
+
+        private async Task<string> PickFile()
+        {
+            try
+            {
+                // Выбираем файл
+                var result = await FilePicker.PickAsync();
+                if (result != null)
+                {
+                    // Возвращаем путь выбранного файла
+                    return result.FullPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок
+                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            }
+
+            // Если файл не выбран или произошла ошибка, возвращаем пустую строку
+            return string.Empty;
+        }
+
+
+        private async void createNewFile()
+        {
+            string name = await DisplayPromptAsync("Название документа", "Введите название документа");
+            try
+            {
+                // Путь к файлу в папке Documents на устройстве
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), name);
+
+                // Создаем или открываем файл для записи
+                using (StreamWriter writer = File.CreateText(filePath))
+                {
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            }
+            ReadFromFile(name);
+            FilePath = name;
+            _fileName.Text = FilePath;
+            AddEntry();
+            UpdateEmployeesList();
+        }
+        private async void CreateNewFile(object sender, EventArgs e)
+        {
+            createNewFile();
         }
 
 

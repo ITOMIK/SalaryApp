@@ -10,7 +10,20 @@
                    SemanticProperties.Description="dot net bot in a race car number eight" />
 
                 <!-- Первое поле ввода -->
-            <Button WidthRequest="60" Text="Сохранить" Clicked="SaveData" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center"  Margin="0,0,0,10">
+                <Button WidthRequest="200" Text="Создать новый файл" Clicked="CreateNewFile" Margin="10"/>
+                <Button WidthRequest="200" Text="Сохранить" Clicked="SaveData" Margin="10"/>
+                <Button WidthRequest="200" Text="Выбрать файл" Clicked="OnButtonClick" Margin="10"/>
+                <Entry Placeholder="Сумма"
+                    FontFamily="Helvetica"
+                    FontSize="22"
+                    MaxLength="20"
+                    WidthRequest="220"
+                    Keyboard="Default"
+                    x:Name="suma"
+                       Margin="10"/>
+                <Label Text="" x:Name="_fileName" FontSize="30" VerticalOptions="Center"/>
+            </StackLayout>
             <StackLayout x:Name="StackFirst" Spacing="10">
                 <!-- Первая строка -->
                 <StackLayout Orientation="Horizontal"  Margin="0,0,0,10">
@@ -49,6 +62,9 @@
                     <Button WidthRequest="60" Text="+" Clicked="AddToList" />
                 </StackLayout>
 
+                <StackLayout
+                    x:Name="EmploeesEntys" Margin="10" Spacing="10">
+                </StackLayout>
             </StackLayout>
 
 
