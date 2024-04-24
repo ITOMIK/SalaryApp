@@ -20,6 +20,9 @@ namespace SalaryApp
 
         public int number = 0;
 
+        public string FirstChildData = "0";
+
+
         public List<Entry> EntryList { get; set; }
 
         public List<Employee> Employees { get; set; }
@@ -44,6 +47,9 @@ namespace SalaryApp
             FilePath = "";
 
             BindingContext = this;
+
+            View.IsVisible = FilePath.Length > 0;
+            SaveButton.IsVisible = View.IsVisible;
 
             if (FilePath.Length > 0) {
             ReadFromFile(FilePath);
@@ -117,6 +123,7 @@ namespace SalaryApp
                 WidthRequest = 40
             };
             entry.TextChanged += Entry_Unfocused;
+            
             var nameEntry = new Entry
             {
                 Placeholder = "Имя",
@@ -152,6 +159,7 @@ namespace SalaryApp
                     }
 
                     UpdateEmployeesList();
+                    UpdateEmployeeEntys();
                 }
             };
 
@@ -162,14 +170,24 @@ namespace SalaryApp
             };
 
             Employees.Add(new Employee(name: nameEntry, entry: entry));
-
             EmploeesEntys.Children.Insert(EmploeesEntys.Children.Count, entryStackLayout);
 
             UpdateEmployeesList();
+            UpdateEmployeeEntys();
         }
+
 
         private void UpdateEmployeesList()
         {
+            try
+            {
+                if (FilePath != null)
+                    View.IsVisible = FilePath.Length > 0;
+                    SaveButton.IsVisible = View.IsVisible;
+            }
+            catch {
+                View.IsVisible = false;
+            }
             employeesGrid.Children.Clear();
 
             foreach (var employee in Employees)
@@ -265,12 +283,12 @@ namespace SalaryApp
                 }
 
                 // Показываем пользователю, что данные были успешно записаны
-                DisplayAlert("Success", $"Data has been written to file successfully. {filePath}", "OK");
+                DisplayAlert("Успех!", $"Данные были успешно сохраненны по пути: {filePath}", "OK");
             }
             catch (Exception ex)
             {
                 // Если возникла ошибка, сообщаем пользователю
-                DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+                DisplayAlert("Ошибка", $"Подробнее: {ex.Message}", "OK");
             }
         }
 
@@ -318,23 +336,35 @@ namespace SalaryApp
                             AddEntry(a.Text, b.Text);
                             // Добавляем сотрудника на основе данных из файла
                         }
-
+                        UpdateEmployeeEntys();
                         // Закрываем файл
                         reader.Close();
                     }
-
-                    // Показываем пользователю, что данные были успешно считаны
-                    DisplayAlert("Success", $"Data has been read from file successfully. {filePath}", "OK");
                 }
                 else
                 {
-                    DisplayAlert("File Not Found", $"The file '{fileName}' does not exist.", "OK");
+                    DisplayAlert("Ошибка", $"Файл '{fileName}' не получилось открыть", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Если возникла ошибка, сообщаем пользователю
-                DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+                DisplayAlert("Ошибка", $"Подробности: {ex.Message}", "OK");
+            }
+        }
+
+        private void UpdateEmployeeEntys()
+        {
+            if (Employees.Count == 1)
+            {
+                FirstChildData = Employees[0].Entry.Text;
+                Employees[0].Entry.Text = "100";
+                Employees[0].Entry.IsVisible = false;
+            }
+            if (Employees.Count > 1)
+            {
+                Employees[0].Entry.Text = FirstChildData;
+                Employees[0].Entry.IsVisible = true;
             }
         }
 
@@ -366,7 +396,7 @@ namespace SalaryApp
             catch (Exception ex)
             {
                 // Обработка ошибок
-                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+                await DisplayAlert("Ошибка", $"Подробности: {ex.Message}", "OK");
             }
 
             // Если файл не выбран или произошла ошибка, возвращаем пустую строку
@@ -390,7 +420,7 @@ namespace SalaryApp
             }
             catch (Exception ex)
             {
-                DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+                DisplayAlert("Ошибка", $"Подробности: {ex.Message}", "OK");
             }
             ReadFromFile(name);
             FilePath = name;

@@ -2,41 +2,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SalaryApp.MainPage">
 
-    <ScrollView>
+    <ScrollView >
         <StackLayout Margin="10">
-            <Image Source="dotnet_bot.png"
-                   HeightRequest="185"
-                   Aspect="AspectFit"
-                   SemanticProperties.Description="dot net bot in a race car number eight" />
-
-                <!-- Первое поле ввода -->
+            <!-- Первое поле ввода -->
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center"  Margin="0,0,0,10">
                 <Button WidthRequest="200" Text="Создать новый файл" Clicked="CreateNewFile" Margin="10"/>
-                <Button WidthRequest="200" Text="Сохранить" Clicked="SaveData" Margin="10"/>
+                <Button WidthRequest="200" Text="Сохранить" Clicked="SaveData" Margin="10" x:Name="SaveButton"/>
                 <Button WidthRequest="200" Text="Выбрать файл" Clicked="OnButtonClick" Margin="10"/>
-                <Entry Placeholder="Сумма"
-                    FontFamily="Helvetica"
-                    FontSize="22"
-                    MaxLength="20"
-                    WidthRequest="220"
-                    Keyboard="Default"
-                    x:Name="suma"
-                       Margin="10"/>
                 <Label Text="" x:Name="_fileName" FontSize="30" VerticalOptions="Center"/>
             </StackLayout>
+            <StackLayout x:Name="View">
             <StackLayout x:Name="StackFirst" Spacing="10">
-                <!-- Первая строка -->
-                <StackLayout Orientation="Horizontal"  Margin="0,0,0,10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Cумма: "  FontSize="30" VerticalOptions="Center"/>
+                        <Entry Placeholder="Сумма"
+                        FontFamily="Helvetica"
+                        FontSize="22"
+                        MaxLength="20"
+                        WidthRequest="220"
+                        Keyboard="Default"
+                        x:Name="suma"
+                           Margin="10" VerticalOptions="Center"/>
+                    </StackLayout>
+                    <!-- Первая строка -->
+                <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
                     <!-- Поле ввода для имени привлекателя -->
-                    <Entry Placeholder="Имя Привлекателя"
-               FontFamily="Helvetica"
-               FontSize="22"
-               MaxLength="20"
-               WidthRequest="220"
-               Keyboard="Default"
-               x:Name="attractorName"/>
+                        <Entry Placeholder="Имя Привлекателя"
+                           FontFamily="Helvetica"
+                           FontSize="22"
+                           MaxLength="20"
+                           WidthRequest="220"
+                           Keyboard="Default"
+                           x:Name="attractorName"/>
 
-                    <!-- Поле ввода для процентов -->
+                        <!-- Поле ввода для процентов -->
                     <Entry Placeholder="%"
                FontFamily="Helvetica"
                FontSize="22"
@@ -67,8 +66,8 @@
                 </StackLayout>
             </StackLayout>
 
-
-            <StackLayout Orientation="Horizontal"  Margin="0,10,0,10">
+            
+            <StackLayout Orientation="Horizontal"  Margin="0,10,0,10" >
                 <Label Text="Фирма: " FontSize="22" VerticalOptions="Center" />
 
                 <!-- Поле ввода для процентов -->
@@ -127,8 +126,10 @@
                x:Name="sum__"
                FontSize="20"
                FontAttributes="Bold"
-               VerticalOptions="Start" />   
+               VerticalOptions="Start" />
 
+            
+            </StackLayout>
         </StackLayout>
     </ScrollView>
         
