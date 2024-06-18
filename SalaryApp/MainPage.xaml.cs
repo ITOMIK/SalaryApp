@@ -2,6 +2,7 @@
 using Microsoft.Maui.Storage;
 using SalaryApp.Models;
 using System.Collections.Generic;
+using System.Linq;
 namespace SalaryApp
 {
 
@@ -21,6 +22,10 @@ namespace SalaryApp
         public int number = 0;
 
         public string FirstChildData = "0";
+
+        public bool isChecking = false;
+
+        public static RedDiamondDrawable RedDiamond = new RedDiamondDrawable();
 
 
         public List<Entry> EntryList { get; set; }
@@ -182,73 +187,139 @@ namespace SalaryApp
             try
             {
                 if (FilePath != null)
+                {
                     View.IsVisible = FilePath.Length > 0;
                     SaveButton.IsVisible = View.IsVisible;
+                }
             }
-            catch {
+            catch
+            {
                 View.IsVisible = false;
             }
+
+            double totalPercentage = 0;
+            double sam = 0;
+
+            try
+            {
+                sam = Convert.ToDouble(firmaData);
+                if (!IsAttractorFirma)
+                {
+                    sam += Convert.ToDouble(AttractorData);
+                }
+            }
+            catch
+            {
+                sam = 0;
+            }
+
             employeesGrid.Children.Clear();
 
+            bool validInput = true;
             foreach (var employee in Employees)
             {
-                double num = 0;
-                try
+                double employeePercentage = 0;
+                if (!double.TryParse(employee.Entry.Text, out employeePercentage))
                 {
-                    double sam = Convert.ToDouble(firmaData);
-                    if (!IsAttractorFirma)
-                    {
-                        sam += Convert.ToDouble(AttractorData);
-                    }
-                    num = Convert.ToDouble(employee.Entry.Text) * number * (100-sam) / 10000 ;
+                    validInput = false;
+                    break;
                 }
-                catch
-                {
-                    num = 0;
-                }
-                var label = new Label { Text = $"{employee.NameEntry.Text}: {num}" };
-                if (label.Text!=": %") { 
-                employeesGrid.Children.Add(label);
-                }
-            }
-            double totalPercentage = 0;
-            try { 
-             totalPercentage = Employees.Sum(emp => Convert.ToDouble(emp.Entry.Text));
-            }
-            catch {
-                totalPercentage = 0;
-            }
-            totalPercentageLabel.Text = $"Общая сумма Работники: {totalPercentage}";
 
-            sum__.Text = "Сумма: "+number.ToString();
+                totalPercentage += employeePercentage;
+            }
+
+            if (!validInput || totalPercentage != 100 && isChecking)
+            {
+                // Создаем метку с сообщением об ошибке
+                var errorLabel = new Label
+                {
+                    Text = "Сумма процентов должна быть 100 процентов",
+                    TextColor = Colors.Red,
+                    FontSize = 18,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
+                };
+
+                // Создаем GraphicsView для рисования ромба
+                var diamondView = new GraphicsView
+                {
+                    Drawable = RedDiamond,
+                    WidthRequest = 100,
+                    HeightRequest = 100,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
+                };
+
+                // Добавляем GraphicsView и метку в grid
+                employeesGrid.Children.Add(diamondView);
+                employeesGrid.Children.Add(errorLabel);
+            }
+            else
+            {
+                foreach (var employee in Employees)
+                {
+                    double num = 0;
+                    try
+                    {
+                        num = Convert.ToDouble(employee.Entry.Text) * number * (100 - sam) / 10000;
+                    }
+                    catch
+                    {
+                        num = 0;
+                    }
+
+                    var label = new Label { Text = $"{employee.NameEntry.Text}: {num}" };
+
+                    if (label.Text != ": %")
+                    {
+                        employeesGrid.Children.Add(label);
+                    }
+                }
+            }
+
+            double totalSum = 0;
+            try
+            {
+                totalSum = Employees.Sum(emp => Convert.ToDouble(emp.Entry.Text) * number * (100 - sam) / 10000);
+            }
+            catch
+            {
+                totalSum = 0;
+            }
+            totalPercentageLabel.Text = $"Общая сумма Работники: {totalSum}";
+
+            sum__.Text = "Сумма: " + number.ToString();
             double firmaNum = 0;
             try
             {
-                firmaNum = Convert.ToDouble(firmaData)*number/100;
+                firmaNum = Convert.ToDouble(firmaData) * number / 100;
             }
             catch
             {
                 firmaNum = 0;
             }
             FirmaLabel.Text = $"Фирма: {firmaNum}";
+
             if (IsAttractorFirma)
             {
                 AttractorLabel.IsVisible = false;
             }
-            else {
+            else
+            {
                 AttractorLabel.IsVisible = true;
-                double num = 0;
+                double attractorNum = 0;
                 try
                 {
-                    num = Convert.ToDouble(AttractorData) * number / 100;
+                    attractorNum = Convert.ToDouble(AttractorData) * number / 100;
                 }
                 catch
                 {
-                    num = 0;
+                    attractorNum = 0;
                 }
-                AttractorLabel.Text = $"{AttractorName} процент: {num}%";
+                AttractorLabel.Text = $"{AttractorName}: {attractorNum}";
             }
         }
+
 
         private void AddToList(object sender, EventArgs e)
         {
@@ -360,11 +431,13 @@ namespace SalaryApp
                 FirstChildData = Employees[0].Entry.Text;
                 Employees[0].Entry.Text = "100";
                 Employees[0].Entry.IsVisible = false;
+                isChecking = false;
             }
             if (Employees.Count > 1)
             {
                 Employees[0].Entry.Text = FirstChildData;
                 Employees[0].Entry.IsVisible = true;
+                isChecking = true;
             }
         }
 

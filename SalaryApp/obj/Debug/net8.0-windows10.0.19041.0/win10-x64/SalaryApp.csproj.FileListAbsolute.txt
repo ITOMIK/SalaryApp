@@ -5,7 +5,6 @@ I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\
 I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.dll
 I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.pdb
 I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri
-I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml
 I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.Configuration.dll
 I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.Configuration.Abstractions.dll
 I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.DependencyInjection.dll
@@ -174,5 +173,6 @@ I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\
 I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\qualifiers.txt
 I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\qualifiers.txt.intermediate
 I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
-I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\ProjectArchitectures.txt
 I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.sourcelink.json
+I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml
+I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\ProjectArchitectures.txt

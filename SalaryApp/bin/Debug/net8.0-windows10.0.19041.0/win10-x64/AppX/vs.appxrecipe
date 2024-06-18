@@ -29,25 +29,25 @@
     <AppXManifest Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2024-04-24T14:10:29.009</Modified>
+      <Modified>2024-06-18T18:40:21.340</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2024-04-24T13:37:25.492</Modified>
+      <Modified>2024-06-18T18:40:21.239</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.runtimeconfig.json">
       <PackagePath>SalaryApp.runtimeconfig.json</PackagePath>
-      <Modified>2024-04-19T11:57:30.244</Modified>
+      <Modified>2024-06-18T18:25:57.145</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.dll">
       <PackagePath>SalaryApp.dll</PackagePath>
-      <Modified>2024-04-24T14:10:28.730</Modified>
+      <Modified>2024-06-18T18:40:20.852</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>SalaryApp.exe</PackagePath>
-      <Modified>2024-04-24T14:10:28.735</Modified>
+      <Modified>2024-06-18T18:40:20.857</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
@@ -287,7 +287,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="I:\SalaryApp\SalaryApp\SalaryApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SalaryApp.deps.json">
       <PackagePath>SalaryApp.deps.json</PackagePath>
-      <Modified>2024-04-19T17:02:34.397</Modified>
+      <Modified>2024-06-18T18:25:57.010</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\mayta\.nuget\packages\microsoft.windows.sdk.net.ref\10.0.19041.31\lib\net6.0\Microsoft.Windows.SDK.NET.dll">
       <PackagePath>Microsoft.Windows.SDK.NET.dll</PackagePath>
